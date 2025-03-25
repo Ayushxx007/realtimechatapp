@@ -1,15 +1,25 @@
 import express from "express";
 
+import { protectRoute } from "../middlewares/auth.middleware.js";
+
+
+
+
 const router=express.Router();
-import { signup,login,logout} from "../controller/auth.controller.js";
+import { signup,login,logout,updateProfile,checkAuth} from "../controller/auth.controller.js";
 
 
 
 
-router.get("/signup",signup);
+router.post("/signup",signup);
 
-router.get("/login",login);
+router.post("/login",login);
 
-router.get("/logout",logout);
+router.post("/logout",logout);
+
+
+router.put("/update-profile",protectRoute,updateProfile);
+
+router.get("/check",protectRoute,checkAuth);
 
 export default router;
